@@ -1,4 +1,4 @@
-# '{{cookiecutter.project_name}}'
+# {{cookiecutter.project_name}}
 
 [Picocli](https://picocli.info/#_spring_boot_example) Spring Boot application CLI.
 

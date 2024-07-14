@@ -10,11 +10,11 @@ import picocli.CommandLine.IFactory;
 
 @SpringBootApplication
 @Command(name = "{{cookiecutter.cli_name}}", mixinStandardHelpOptions = true, version = "1.0",
-        description = "{{cookiecutter.cli_description}}")
+description = "{{cookiecutter.cli_description}}")
 public class Application implements CommandLineRunner, ExitCodeGenerator {
 
-    private IFactory factory;
-    private GreetCommand greetCommand;
+    private final IFactory factory;
+    private final GreetCommand greetCommand;
     private int exitCode;
 
     Application(IFactory factory, GreetCommand greetCommand) {
