@@ -2,6 +2,8 @@
 
 [Picocli](https://picocli.info/#_spring_boot_example) Spring Boot application CLI.
 
+****{{ cookiecutter.cli_description }}
+
 ## Requirements
 
 ```shell
