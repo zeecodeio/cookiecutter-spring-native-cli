@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '{{cookiecutter.spring_boot_version}}'
+    id 'io.spring.dependency-management' version '1.1.5'
+    id 'org.graalvm.buildtools.native' version '0.10.2'
+}
+
+group = '{{cookiecutter.package_name}}'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '{{cookiecutter.java_version}}'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of({{cookiecutter.java_version}})
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springShellVersion', "'{{cookiecutter.spring_boot_version}}'")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'info.picocli:picocli:4.7.6'
+    annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
+    implementation 'info.picocli:picocli-spring-boot-starter:4.7.6'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.shell:spring-shell-dependencies:${springShellVersion}"
+    }
+}
+
+bootBuildImage {
+    builder = "paketobuildpacks/builder:tiny"
+    environment = [
+            "BP_NATIVE_IMAGE" : "true"
+    ]
+}
+
+compileJava {
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
